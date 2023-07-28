@@ -49,20 +49,20 @@ const movieSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Types.ObjectId,
     ref: 'user',
-    required: true
+    required: true,
   },
   movieId: {
     type: Number,
-    required: true
+    required: true,
   },
   nameRU: {
     type: String,
-    required: true
+    required: true,
   },
   nameEN: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const movie = mongoose.model('movie', movieSchema);

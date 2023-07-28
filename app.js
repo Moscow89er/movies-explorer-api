@@ -9,7 +9,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/moviesexplorerdb', {
   useNewUrlParser: true,
 });
 
-
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`)
+  console.log(`App listening on port ${PORT}`);
 });
