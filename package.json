@@ -11,9 +11,11 @@
   "author": "Nikita Khubaev",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mongoose": "^7.4.1"
+    "mongoose": "^7.4.1",
+    "validator": "^13.9.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
