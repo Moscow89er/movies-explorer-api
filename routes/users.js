@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { celebrate } = require('celebrate');
 const {
-  getCurrentUser,
+  getUser,
   editUser,
 } = require('../controllers/users');
 
@@ -9,7 +9,7 @@ const {
   editUserValidation,
 } = require('../validation/validationRules');
 
-router.get('/me', getCurrentUser);
+router.get('/me', getUser);
 
 router.patch('/me', celebrate(editUserValidation), editUser);
 
