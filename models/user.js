@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
     required: false,
     minlength: 2,
     maxlength: 30,
-    default: 'Никита',
   },
   email: {
     type: String,
@@ -47,6 +46,6 @@ userSchema.statics.findUserByCredentials = function (email, password) {
     });
 };
 
-const user = mongoose.model('user', userSchema);
+const User = mongoose.model('user', userSchema);
 
-module.exports = user;
+module.exports = User;
