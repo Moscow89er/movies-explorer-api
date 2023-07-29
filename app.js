@@ -4,6 +4,7 @@ const { celebrate, errors } = require('celebrate');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/errorHandler');
+const NotFoundError = require('./errors/not-found-err');
 const { loginValidation, createUserValidation } = require('./validation/validationRules');
 
 const { PORT = 3000 } = require('./config/config');
@@ -13,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://127.0.0.1:27017/moviesexplorerdb', {
+mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
   useNewUrlParser: true,
 });
 
@@ -27,6 +28,11 @@ app.use(auth);
 
 // используем централизованный роутер
 app.use('/', require('./routes'));
+
+// роут если страница не существует
+app.use('*', (req, res, next) => {
+  next(new NotFoundError('Страница не найдена'));
+});
 
 // обработчик ошибок celebrate
 app.use(errors());

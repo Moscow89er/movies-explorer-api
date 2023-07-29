@@ -62,18 +62,18 @@ const createMovie = async (req, res, next) => {
 
 // Удаляет сохранённый фильм по id
 const deleteMovie = async (req, res, next) => {
-  const { id } = req.params;
+  const { movieId } = req.params;
   const owner = req.user._id;
 
   try {
-    const movie = await Movie.findById(id);
+    const movie = await Movie.findById(movieId);
     if (!movie) {
       throw new NotFoundError('Запрашиваемый фильм не найден');
     } else if (movie.owner.toString() !== owner) {
       // если пользователь не является владельцем текущей карточки
       next(new ForbiddenError('Недостаточно прав для удаления'));
     } else {
-      await Movie.deleteOne({ id });
+      await Movie.deleteOne({ movieId });
       res.status(OK_CODE).send(movie);
     }
   } catch (err) {
