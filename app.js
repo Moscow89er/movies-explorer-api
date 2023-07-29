@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const { celebrate, errors } = require('celebrate');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
+const cors = require('./middlewares/cors');
 const errorHandler = require('./middlewares/errorHandler');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
 const { loginValidation, createUserValidation } = require('./validation/validationRules');
 
@@ -17,6 +19,12 @@ app.use(express.urlencoded({ extended: true }));
 mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
   useNewUrlParser: true,
 });
+
+// использование кросс-доменных запросов CORS
+app.use(cors);
+
+// подключаем логгер запросов
+app.use(requestLogger);
 
 // роуты не требующие авторизации
 app.post('/signin', celebrate(loginValidation), login);
@@ -33,6 +41,9 @@ app.use('/', require('./routes'));
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
+
+// обработчик логгер ошибок
+app.use(errorLogger);
 
 // обработчик ошибок celebrate
 app.use(errors());
