@@ -73,7 +73,7 @@ const deleteMovie = async (req, res, next) => {
       // если пользователь не является владельцем текущей карточки
       next(new ForbiddenError('Недостаточно прав для удаления'));
     } else {
-      await Movie.deleteOne({ movieId });
+      await Movie.deleteOne({ _id: movieId });
       res.status(OK_CODE).send(movie);
     }
   } catch (err) {
