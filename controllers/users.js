@@ -11,7 +11,6 @@ const OK_CODE = 200;
 const CREATED_CODE = 201;
 
 // Функция для поиска пользователя и обработки ошибок
-// eslint-disable-next-line consistent-return
 const findUserById = async (id, next) => {
   try {
     const user = await User.findById(id);
