@@ -6,11 +6,14 @@ const {
   deleteMovie,
 } = require('../controllers/movies');
 
-const { movieDeleteValidation } = require('../validation/validationRules');
+const {
+  movieDeleteValidation,
+  createMovieValidation,
+} = require('../validation/validationRules');
 
 router.get('/', getMovies);
 
-router.post('/', createMovie);
+router.post('/', celebrate(createMovieValidation), createMovie);
 
 router.delete('/:movieId', celebrate(movieDeleteValidation), deleteMovie);
 

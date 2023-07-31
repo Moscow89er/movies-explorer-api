@@ -9,6 +9,7 @@ const { NODE_ENV, JWT_SECRET } = require('../config/config');
 
 const OK_CODE = 200;
 const CREATED_CODE = 201;
+const CONFLICT_ERR = 11000;
 
 // Функция для поиска пользователя и обработки ошибок
 const findUserById = async (id, next) => {
@@ -53,10 +54,16 @@ const updateUser = async (req, res, next, updateData) => {
         upsert: false,
       },
     );
+    if (!user) {
+      throw new NotFoundError('Пользователь не найден');
+    }
+
     res.status(OK_CODE).send(user);
   } catch (err) {
     if (err instanceof mongoose.Error.ValidationError) {
       next(new BadRequestError('Переданы некорректные данные'));
+    } else if (err.code === CONFLICT_ERR) {
+      next(new ConflictError('Пользователь с этим email уже сущетсвует'));
     } else {
       next(err);
     }
