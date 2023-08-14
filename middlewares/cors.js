@@ -1,7 +1,7 @@
 const allowedCors = [
   'https://movies-explorer.89er.nomoredomains.sbs',
   'http://movies-explorer.89er.nomoredomains.sbs',
-  'localhost:3000',
+  'http://localhost:3000',
 ];
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 const NO_CONTENT_STATUS_CODE = 204;
