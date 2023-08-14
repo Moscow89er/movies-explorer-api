@@ -13,6 +13,7 @@ module.exports = (req, res, next) => {
   }
 
   if (method === 'OPTIONS') {
+    console.log('OPTIONS request received');
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
     const requestHeaders = req.headers['access-control-request-headers'];
     if (requestHeaders) {
