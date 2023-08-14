@@ -14,15 +14,15 @@ const { PORT = 3000 } = require('./config/config');
 
 const app = express();
 
+// использование кросс-доменных запросов CORS
+app.use(cors);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
 });
-
-// использование кросс-доменных запросов CORS
-app.use(cors);
 
 // подключаем логгер запросов
 app.use(requestLogger);
