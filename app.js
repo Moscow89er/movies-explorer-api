@@ -28,10 +28,7 @@ app.use(cors);
 app.use(requestLogger);
 
 // роуты не требующие авторизации
-app.post('/signin', (req, res, next) => {
-  console.log(req.body); // Удалить после выявления причин ошибок
-  next();
-}, celebrate(loginValidation), login);
+app.post('/signin', celebrate(loginValidation), login);
 
 app.post('/signup', celebrate(createUserValidation), createUser);
 
