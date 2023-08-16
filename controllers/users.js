@@ -96,6 +96,15 @@ const createUser = async (req, res, next) => {
     // удаляем хэш пароля перед отправкой ответа
     const userResponse = user.toObject();
     delete userResponse.password;
+    const token = jwt.sign(
+      { _id: user._id },
+      NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+      { expiresIn: '7d' },
+    );
+
+    userResponse.token = token;
+    userResponse.userId = user._id;
+
     res.status(CREATED_CODE).send(userResponse);
   } catch (err) {
     if (err instanceof mongoose.Error.ValidationError) {
