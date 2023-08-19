@@ -9,9 +9,8 @@ const CREATED_CODE = 201;
 
 // Возвратить все сохранённые текущим пользователем фильмы
 const getMovies = async (req, res, next) => {
-  const owner = req.user._id;
   try {
-    const movies = await Movie.find({ owner });
+    const movies = await Movie.find({ owner: req.user._id });
     res.status(OK_CODE).send(movies);
   } catch (err) {
     next(err);
@@ -33,7 +32,6 @@ const createMovie = async (req, res, next) => {
     thumbnail,
     movieId,
   } = req.body;
-  const owner = req.user._id;
 
   try {
     const movie = await Movie.create({
@@ -48,7 +46,7 @@ const createMovie = async (req, res, next) => {
       nameEN,
       thumbnail,
       movieId,
-      owner,
+      owner: req.user._id,
     });
     res.status(CREATED_CODE).send(movie); // фильм успешно создан
   } catch (err) {
